@@ -6,11 +6,12 @@ const colors = ['red','red','blue','blue','green','green','yellow','yellow','cya
 export default () => {
   const [colorList,setColorList] = useState(colors)
   const [bools,setBools] = useState((new Array(12)).fill(0))
-  const [click,setClick] = useState(20)
+  const [click,setClick] = useState(25)
   const [result,setResult] = useState('')
   useEffect(() => {
-    if(click === 0 && bools.filter(d=>d!==2).length >2) {
+    if(click === 0 && bools.filter(d=>d!==2).length >1) {
       setResult('游戏失败')
+
     }else if (bools.filter(d=>d!==2).length === 0){
       setResult('游戏胜利')
     }
@@ -18,10 +19,11 @@ export default () => {
   const replay = () => {
     setColorList(d=>d.sort(()=>Math.random()-0.5))
     setBools((new Array(12)).fill(0))
-    setClick(20)
+    setClick(25)
     setResult('')
   }
   const onClick = (i) => {
+    if(result=='游戏失败') return
     const a = bools.filter(d=>d===1).length
     const q = bools.findIndex(d=>d===1)
     if(q===i) return
